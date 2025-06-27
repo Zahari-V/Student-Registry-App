@@ -1,0 +1,48 @@
+name: CI/CD Student Registry App
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    name: Build, security audit and test
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18.x]
+
+    steps:
+    - name: Chekout repository
+      uses: actions/checkout@v4
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
+    - name: Install dependencies
+      run: npm install
+    - name: Security audit
+      run: npm audit fix --force
+    - name: Start App
+      run: npm start &
+    - name: Run tests
+      run: npm test
+
+  deploy:
+    name: Deploy to production (Render)
+
+    needs: build
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy to production (Render)
+        uses: johnbeynon/render-deploy-action@v0.0.8
+        with:
+          service-id: ${{ secrets.RENDER_SERVICE_ID }}
+          api-key: ${{ secrets.RENDER_API_KEY }}
+          wait-for-success: true
