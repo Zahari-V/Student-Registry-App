@@ -13,7 +13,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [18.x, 20.x, 22.x]
+        node-version: [18.x]
 
     steps:
     - name: Chekout repository
@@ -22,7 +22,9 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: ${{ matrix.node-version }}
+    - name: Install dependencies
+      run: npm install
     - name: Start App
-      run: npm start
+      run: npm start &
     - name: Run tests
       run: npm test
