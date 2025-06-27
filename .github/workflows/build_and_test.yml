@@ -1,8 +1,8 @@
 name: Build and test Student-Regustry-App
 
 on:
-  push:
-    branches: [ "main" ]
+  # push:
+  #   branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
 
