@@ -9,12 +9,11 @@ on:
 jobs:
   build:
     name: Build, security audit and test
-
     runs-on: ubuntu-latest
 
     strategy:
       matrix:
-        node-version: [18.x]
+        node-version: [ "18.x", "20.x", "22.x"]
 
     steps:
     - name: Chekout repository
@@ -34,9 +33,7 @@ jobs:
 
   deploy:
     name: Deploy to production (Render)
-
     needs: build
-
     runs-on: ubuntu-latest
 
     steps:
