@@ -2,12 +2,14 @@ name: CI/CD Student Registry App
 
 on:
   push:
-    branches: [ main ]
+    branches: [ "main" ]
   pull_request:
-    branches: [ main ]
+    branches: [ "main" ]
 
 jobs:
   build:
+    name: Build, security audit and test
+
     runs-on: ubuntu-latest
 
     strategy:
@@ -31,6 +33,8 @@ jobs:
       run: npm test
 
   deploy:
+    name: Deploy to production (Render)
+
     needs: build
 
     runs-on: ubuntu-latest
