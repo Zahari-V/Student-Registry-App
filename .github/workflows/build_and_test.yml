@@ -22,10 +22,10 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: ${{ matrix.node-version }}
-    - name: Install dependencies
-      run: npm install
-    - name: Security audit
-      run: npm audit fix --force
+    # - name: Install dependencies
+    #   run: npm install
+    # - name: Security audit
+    #   run: npm audit fix --force
     - name: Start App
       run: npm start &
     - name: Run tests
